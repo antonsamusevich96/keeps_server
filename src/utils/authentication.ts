@@ -1,12 +1,7 @@
 import {NextFunction, Request, Response} from 'express';
-import {AnyObject, ObjectSchema} from 'yup';
 import {JsonWebTokenError, sign, verify} from 'jsonwebtoken'
 import {DECODE_KEY} from "../accesses";
 import {IAuthentication, VerifyData} from "../types/types";
-
-type ValidateMiddleware = <T extends AnyObject>(
-    schema: ObjectSchema<T>
-) => (req: Request, res: Response, next: NextFunction) => Promise<void>;
 
 export const checkAuthentication = async (req: Request, res: Response, next: NextFunction) => {
     if (req.method === 'OPTIONS') {
@@ -46,7 +41,7 @@ export const checkRefresh = async (req: Request, res: Response, next: NextFuncti
         }
         res.status(500);
     }
-};]
+};
 
 export const getAuthentication = (data: VerifyData): IAuthentication => {
      return {
